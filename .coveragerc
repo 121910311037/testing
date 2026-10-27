@@ -1,0 +1,10 @@
+[run]
+source = app
+omit =
+    app/api/patients.py
+    app/services/mood_service.py
+    app/models/*
+
+[report]
+show_missing = true
+skip_empty = true
