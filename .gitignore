@@ -6,3 +6,8 @@ __pycache__/
 htmlcov/
 *.egg-info/
 .env
+
+# Local demo data: do not commit patient text or voice recordings.
+data/*.json
+data/audio/
+data/voice_profiles/

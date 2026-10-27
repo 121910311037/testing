@@ -1,7 +1,32 @@
 
-# 🧠 JOG AI – Mood Analysis & Emotion Detection System
+# 🧠 JOG AI – Guided Mood Check-in + Voice Profile
+
+## Current guided experience
+
+The repository now has a runnable browser flow that uses the two capabilities as separate but connected steps:
+
+```text
+emotion questions → emotion estimate → personalized recommendation
+                                      ↓
+                         consent + voice sample
+                                      ↓
+                             voice profile test
+```
+
+Start it from the repository root:
+
+```bash
+python -m pip install -r requirements.txt
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+
+Then open `http://localhost:8000`. The same FastAPI app serves the frontend and API. Detailed behavior and optional true voice cloning are documented in [`docs/GUIDED_CHECKIN.md`](docs/GUIDED_CHECKIN.md).
+
+The default demo is transparent: it runs a lightweight emotion baseline, stores an explicitly consented voice sample, replays that sample as a profile check, and offers browser speech for the test text. Coqui XTTS can be enabled separately for a true cloned-speech preview; the app never labels a sample replay as cloning.
+
 ## Overview
-it is a proof-of-concept AI-powered Mood Analysis and Emotion Detection system developed for  JOG Medication Reminder Application.
+
+It is a proof-of-concept AI-powered Mood Analysis and Emotion Detection system developed for the JOG Medication Reminder Application.
 
 The system analyzes patient questionnaire responses together with free-text input to determine:
 
