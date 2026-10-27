@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="JOG emotional check-in, recommendations, and voice profile setup">
+  <title>JOG Care Check-in</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">✦</div>
+      <div>JOG care<small>wellbeing companion</small></div>
+    </div>
+    <div class="privacy-note"><span aria-hidden="true">🔒</span> Private check-in · demo workspace</div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">A gentler daily check-in</p>
+        <h1>Make space for how you feel.</h1>
+        <p class="hero-copy">Answer a few simple questions, receive a supportive next step, then set up a voice profile for more personal reminders.</p>
+      </div>
+      <aside class="hero-card">
+        <span class="mini-label">Today’s flow</span>
+        <strong>Feel → reflect → hear</strong>
+        <p>Your answers guide a wellbeing recommendation. A voice sample is only used after you give permission.</p>
+      </aside>
+    </section>
+
+    <nav class="progress-wrap" aria-label="Check-in progress">
+      <ol class="progress">
+        <li data-progress="assessment" class="active">1 · Check in</li>
+        <li data-progress="result">2 · Recommendation</li>
+        <li data-progress="voice">3 · Voice profile</li>
+        <li data-progress="test">4 · Test your voice</li>
+      </ol>
+    </nav>
+
+    <section id="step-assessment" class="step active" aria-labelledby="assessment-title">
+      <div class="card"><div class="card-body">
+        <div class="card-heading">
+          <div><h2 id="assessment-title">How are you feeling today?</h2><p>There is no right answer. Choose what feels closest, and add a few words if you would like.</p></div>
+          <div class="number-badge">01</div>
+        </div>
+
+        <form id="assessment-form">
+          <div class="field-grid">
+            <fieldset class="field"><legend>How did you sleep?</legend>
+              <div class="choice-grid compact">
+                <div class="choice"><input id="sleep-1" name="sleep" type="radio" value="1"><label for="sleep-1"><span>🌙</span>Very poor</label></div>
+                <div class="choice"><input id="sleep-3" name="sleep" type="radio" value="3" checked><label for="sleep-3"><span>😐</span>Okay</label></div>
+                <div class="choice"><input id="sleep-5" name="sleep" type="radio" value="5"><label for="sleep-5"><span>☀️</span>Restful</label></div>
+              </div>
+            </fieldset>
+            <fieldset class="field"><legend>How is your energy?</legend>
+              <div class="choice-grid compact">
+                <div class="choice"><input id="energy-1" name="energy" type="radio" value="1"><label for="energy-1"><span>🪫</span>Low</label></div>
+                <div class="choice"><input id="energy-3" name="energy" type="radio" value="3" checked><label for="energy-3"><span>🔋</span>Steady</label></div>
+                <div class="choice"><input id="energy-5" name="energy" type="radio" value="5"><label for="energy-5"><span>⚡</span>High</label></div>
+              </div>
+            </fieldset>
+            <fieldset class="field"><legend>How much stress do you feel?</legend>
+              <div class="choice-grid compact">
+                <div class="choice"><input id="stress-1" name="stress" type="radio" value="1"><label for="stress-1"><span>🍃</span>Low</label></div>
+                <div class="choice"><input id="stress-3" name="stress" type="radio" value="3" checked><label for="stress-3"><span>〰️</span>Some</label></div>
+                <div class="choice"><input id="stress-5" name="stress" type="radio" value="5"><label for="stress-5"><span>🌪️</span>High</label></div>
+              </div>
+            </fieldset>
+          </div>
+
+          <fieldset class="field"><legend>Which feels closest right now?</legend>
+            <div class="choice-grid">
+              <div class="choice"><input id="feeling-positive" name="feeling" type="radio" value="positive"><label for="feeling-positive"><span>🙂</span>Good</label></div>
+              <div class="choice"><input id="feeling-neutral" name="feeling" type="radio" value="neutral" checked><label for="feeling-neutral"><span>😌</span>Okay</label></div>
+              <div class="choice"><input id="feeling-sad" name="feeling" type="radio" value="sadness"><label for="feeling-sad"><span>😔</span>Low</label></div>
+              <div class="choice"><input id="feeling-anxious" name="feeling" type="radio" value="fear"><label for="feeling-anxious"><span>😟</span>Worried</label></div>
+              <div class="choice"><input id="feeling-angry" name="feeling" type="radio" value="anger"><label for="feeling-angry"><span>😤</span>Frustrated</label></div>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="check-in-text">Want to tell us a little more? <span class="hint" style="display:inline">(optional)</span></label>
+            <textarea id="check-in-text" maxlength="2000" placeholder="For example: I feel tired, but I am looking forward to seeing my family."></textarea>
+            <span class="hint">This demo looks for emotional cues. It does not diagnose a medical condition.</span>
+          </div>
+
+          <div id="assessment-error" class="alert error hidden" role="alert"></div>
+          <div class="button-row"><button class="button primary" type="submit" id="assessment-submit">See my recommendation <span aria-hidden="true">→</span></button><span id="assessment-loading" class="loading hidden"><span class="spinner"></span>Reading your check-in…</span></div>
+        </form>
+      </div></div>
+    </section>
+
+    <section id="step-result" class="step" aria-labelledby="result-title">
+      <div class="card"><div class="card-body">
+        <div class="card-heading"><div><h2 id="result-title">Here is what we heard.</h2><p>This is a gentle estimate based on your answers and words. You are the expert on how you feel.</p></div><div class="number-badge">02</div></div>
+        <div class="result-layout">
+          <div class="result-card"><h3>Primary emotion</h3><p class="emotion-name" id="result-emotion">Neutral</p><p class="confidence" id="result-confidence">Confidence —</p><div style="margin-top:18px"><span id="result-risk" class="pill low">Low support need</span></div></div>
+          <div class="result-card"><h3>Your personalized next step</h3><div class="recommendation"><strong id="result-action">Maintain healthy habits</strong><p id="result-recommendation">A recommendation will appear here.</p></div><div id="result-safety" class="alert warning hidden"></div></div>
+        </div>
+        <div class="result-card" style="margin-top:18px"><h3>Emotion signals</h3><div id="result-scores"></div><p class="hint" style="margin-top:16px">Detection source: <span id="result-source">—</span>. Results are informational, not a diagnosis.</p></div>
+        <div class="button-row"><button class="button primary" id="to-voice">Set up a voice profile <span aria-hidden="true">→</span></button><button class="button ghost" id="back-to-assessment">Edit my answers</button></div>
+      </div></div>
+    </section>
+
+    <section id="step-voice" class="step" aria-labelledby="voice-title">
+      <div class="card"><div class="card-body">
+        <div class="card-heading"><div><h2 id="voice-title">Set up your voice profile.</h2><p>Record a short, clear sample or upload one. Only continue if you have permission to use this person’s voice.</p></div><div class="number-badge">03</div></div>
+        <div class="voice-grid">
+          <div class="voice-panel">
+            <h3>Profile details</h3><p>Give the profile a name you will recognize later.</p>
+            <div class="field"><label for="profile-name">Profile name</label><input id="profile-name" type="text" value="My supportive voice" maxlength="80"></div>
+            <div class="field"><label for="speaker-name">Speaker name <span class="hint" style="display:inline">(optional)</span></label><input id="speaker-name" type="text" placeholder="e.g. Alex, Mom, or My voice" maxlength="80"></div>
+            <div class="field"><label for="voice-language">Language</label><select id="voice-language"><option value="en">English</option><option value="es">Spanish</option><option value="fr">French</option></select></div>
+            <label class="consent"><input id="voice-consent" type="checkbox"><span>I have permission to record and use this voice. I understand that a voice is sensitive personal data.</span></label>
+          </div>
+          <div class="voice-panel">
+            <h3>Voice sample</h3><p>For a useful reference, speak clearly for 10–30 seconds in a quiet space.</p>
+            <div class="record-box"><div><span id="record-dot" class="record-dot"></span><strong id="record-title">Ready to record</strong></div><div id="record-status" class="record-status">Your browser will ask for microphone permission.</div><button class="button secondary" id="record-button" type="button">● Start recording</button><audio id="recorded-audio" class="audio-preview" controls hidden></audio></div>
+            <div class="field" style="margin-top:20px"><label for="sample-file">Or upload an audio sample</label><input id="sample-file" class="file-input" type="file" accept="audio/*"><span class="hint">Accepted: WAV, MP3, M4A, OGG, WebM. Keep samples private.</span></div>
+          </div>
+        </div>
+        <div id="voice-error" class="alert error hidden" role="alert"></div>
+        <div id="voice-success" class="alert success hidden" role="status"></div>
+        <div class="button-row"><button class="button primary" id="save-voice" type="button">Save profile and continue <span aria-hidden="true">→</span></button><button class="button ghost" id="skip-voice" type="button">Skip for now</button></div>
+      </div></div>
+    </section>
+
+    <section id="step-test" class="step" aria-labelledby="test-title">
+      <div class="card"><div class="card-body">
+        <div class="card-heading"><div><h2 id="test-title">Test your voice profile.</h2><p>Try a short reminder. The available provider is shown clearly so you know whether this is a real cloned preview or a demo fallback.</p></div><div class="number-badge">04</div></div>
+        <div class="test-layout">
+          <div class="test-copy"><span class="provider" id="profile-status">Profile saved</span><div class="quote">A familiar voice can make a small reminder feel more personal.</div><p id="profile-details">Your profile details will appear here.</p><div id="test-notice" class="alert info">Record or upload a sample to test the profile.</div></div>
+          <div class="voice-panel"><div class="field"><label for="test-text">What should the voice say?</label><textarea id="test-text">It is time for your next check-in. Take a slow breath, and remember that small steps count.</textarea></div><div class="field"><label for="test-tone">Tone</label><select id="test-tone"><option value="supportive">Supportive</option><option value="calm">Calm</option><option value="cheerful">Cheerful</option><option value="neutral">Neutral</option></select></div><div id="test-error" class="alert error hidden" role="alert"></div><button class="button primary" id="test-button" type="button">Test profile <span aria-hidden="true">▶</span></button><audio id="test-audio" controls hidden></audio><div class="button-row"><button class="button secondary hidden" id="browser-speech" type="button">Read text with browser voice</button></div></div>
+        </div>
+        <div class="button-row"><button class="button ghost" id="start-over" type="button">Start another check-in</button></div>
+      </div></div>
+    </section>
+  </main>
+
+  <footer><strong>JOG care check-in</strong> is a proof-of-concept. Emotion detection is an estimate and cannot diagnose or replace professional care. Use voice samples only with informed permission. If someone may be in immediate danger, contact local emergency services or a trusted professional.</footer>
+  <script src="/static/js/app.js" defer></script>
+</body>
+</html>

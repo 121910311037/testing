@@ -1,0 +1,4 @@
+# Optional: install only when you want true cloned-speech generation.
+# The guided demo works without this package by replaying the reference sample
+# and offering the browser speech fallback.
+TTS>=0.22.0
